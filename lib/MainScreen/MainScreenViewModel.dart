@@ -1,5 +1,4 @@
 
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:serial_port_win32/serial_port_win32.dart';
 import 'package:collection/collection.dart';
@@ -48,9 +47,9 @@ class MainScreenViewModel extends ChangeNotifier {
   }
 
   void sendMessage(String message) async {
-    final List<PortInfo> portList = await SerialPort.getPortsWithFullMessages();
+    final List<PortInfo> portList = SerialPort.getPortsWithFullMessages();
     ports = SerialPort.getAvailablePorts();
-    PortInfo? arduinoPort = null;
+    PortInfo? arduinoPort;
     arduinoPort = portList.firstWhereOrNull((port) =>
         port.hardwareID.contains(ARDUINO_DEVICE_VID) &&
         port.hardwareID.contains(ARDUINO_DEVICE_PID)
