@@ -14,6 +14,10 @@ enum Option {
 }
 
 class MainScreenViewModel extends ChangeNotifier {
+  MainScreenViewModel() {
+    // Initialize serial communication when the MainScreenViewModel is created
+    initializeSerialCommunication();
+  }
   String ARDUINO_DEVICE_VID = "VID_2341";
   String ARDUINO_DEVICE_PID = "PID_1002";
 
@@ -29,7 +33,21 @@ class MainScreenViewModel extends ChangeNotifier {
 
   void onButtonPressed() {
     print('Button pressed');
-    sendMessage("1");
+    String message;
+    switch (selectedOption) {
+      case Option.speed50:
+        message = "1";
+        break;
+      case Option.speed60:
+        message = "2";
+        break;
+      case Option.speed70:
+        message = "3";
+        break;
+      default:
+        message = "0"; // Default message if none of the options match
+    }
+    sendMessage(message);
   }
 
   void updateSelectedOption(Option? newOption) {
@@ -38,9 +56,7 @@ class MainScreenViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void initializeSerialCommunication() {}
-
-  void sendMessage(String message) async {
+  void initializeSerialCommunication() {
     final List<PortInfo> portList = SerialPort.getPortsWithFullMessages();
     ports = SerialPort.getAvailablePorts();
     PortInfo? arduinoPort;
@@ -52,12 +68,23 @@ class MainScreenViewModel extends ChangeNotifier {
       serialPort = SerialPort(arduinoPort.portName,
           openNow: false, ReadIntervalTimeout: 1, ReadTotalTimeoutConstant: 2);
       serialPort.openWithSettings(BaudRate: CBR_115200);
-      serialPort.writeBytesFromString(message);
+      print('Module found');
     } else {
-      print('No ports available');
+      print('No module');
     }
     print(portList);
     print(arduinoPort);
     print(ports);
+  }
+
+  void sendMessage(String message) async {
+    // Check if serialPort is initialized before using it
+    if (!serialPort.isOpened) {
+      // Initialize serial communication if it's not already initialized
+      initializeSerialCommunication();
+    }
+
+    // Send the message via the serial port
+    serialPort.writeBytesFromString(message);
   }
 }
