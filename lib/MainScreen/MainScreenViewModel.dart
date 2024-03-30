@@ -17,8 +17,9 @@ class MainScreenViewModel extends ChangeNotifier {
     // Initialize serial communication when the MainScreenViewModel is created
     initializeSerialCommunication();
   }
-  String ARDUINO_DEVICE_VID = "VID_2341";
-  String ARDUINO_DEVICE_PID = "PID_1002";
+
+  String? _comPort;
+  String? _fqbn;
 
   Option? _selectedOption;
   bool _isSendButtonEnabled = false;
@@ -54,14 +55,17 @@ class MainScreenViewModel extends ChangeNotifier {
   }
 
   void uploadInoFile(String filePath) {
-    Process.run('arduino-cli', [
-      'upload',
-      '-p',
-      'COM16',
-      '-b',
-      'arduino:renesas_uno:unor4wifi',
-      filePath
-    ]).then((ProcessResult results) {
+    if (_comPort == null || _fqbn == null) {
+      print(
+          'Error: Serial communication has not been initialized. Please call initializeSerialCommunication() first.');
+      return;
+    }
+
+    print(
+        'Uploading file: $filePath to port: ${_comPort!} with fqbn: ${_fqbn!}');
+    Process.run(
+            'arduino-cli', ['upload', '-p', _comPort!, '-b', _fqbn!, filePath])
+        .then((ProcessResult results) {
       print('Upload completed with results: ${results.stdout}');
     });
   }
@@ -72,24 +76,26 @@ class MainScreenViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void initializeSerialCommunication() {
-    /*final List<PortInfo> portList = SerialPort.getPortsWithFullMessages();
-    ports = SerialPort.getAvailablePorts();
-    PortInfo? arduinoPort;
-    arduinoPort = portList.firstWhereOrNull((port) =>
-        port.hardwareID.contains(ARDUINO_DEVICE_VID) &&
-        port.hardwareID.contains(ARDUINO_DEVICE_PID));
+  void initializeSerialCommunication() async {
+    // Run the command and get the output
+    ProcessResult result = await Process.run('arduino-cli', ['board', 'list']);
 
-    if (ports.isNotEmpty && arduinoPort != null) {
-      serialPort = SerialPort(arduinoPort.portName,
-          openNow: false, ReadIntervalTimeout: 1, ReadTotalTimeoutConstant: 2);
-      serialPort.openWithSettings(BaudRate: CBR_115200);
-      print('Module found');
-    } else {
-      print('No module');
+    // Parse the output to get the FQBN
+    List<String> lines = result.stdout.toString().split('\n');
+    for (String line in lines) {
+      if (line.contains('Arduino')) {
+        List<String> parts =
+            line.split(RegExp(r'\s+')); // Split by one or more spaces
+        _comPort = parts[0].trim();
+        _fqbn = parts[9].trim(); // FQBN is the fifth part
+        break;
+      }
     }
-    print(portList);
-    print(arduinoPort);
-    print(ports);*/
+
+    if (_comPort == null || _fqbn == null) {
+      print('No Arduino board found.');
+    } else {
+      print('Detected Arduino board on $_comPort with fqbn $_fqbn');
+    }
   }
 }
