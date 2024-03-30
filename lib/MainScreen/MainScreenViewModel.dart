@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:serial_port_win32/serial_port_win32.dart';
-import 'package:collection/collection.dart';
-import 'package:win32/win32.dart';
 import 'dart:io';
 
 enum Option {
@@ -38,19 +36,19 @@ class MainScreenViewModel extends ChangeNotifier {
     switch (selectedOption) {
       case Option.speed50:
         inoFilePath =
-            'C:\Users\rolni\kody\Dziekan\SignalTransmitter\codes\ArduinUno\firstBoss\firstBoss.ino';
+            'C:\\Users\\rolni\\kody\\Dziekan\\SignalTransmitter\\codes\\ArduinUno\\firstBoss\\firstBoss.ino';
         break;
       case Option.speed60:
         inoFilePath =
-            'C:\Users\rolni\kody\Dziekan\SignalTransmitter\codes\ArduinUno\firstBoss\firstBoss.ino';
+            'C:\\Users\\rolni\\kody\\Dziekan\\SignalTransmitter\\codes\\ArduinUno\\firstBoss\\firstBoss.ino';
         break;
       case Option.speed70:
         inoFilePath =
-            'C:\Users\rolni\kody\Dziekan\SignalTransmitter\codes\ArduinUno\firstBoss\firstBoss.ino';
+            'C:\\Users\\rolni\\kody\\Dziekan\\SignalTransmitter\\codes\\ArduinUno\\firstBoss\\firstBoss.ino';
         break;
       default:
         inoFilePath =
-            'C:\Users\rolni\kody\Dziekan\SignalTransmitter\codes\ArduinUno\firstBoss\firstBoss.ino';
+            'C:\\Users\\rolni\\kody\\Dziekan\\SignalTransmitter\\codes\\ArduinUno\\firstBoss\\firstBoss.ino';
     }
     uploadInoFile(inoFilePath);
   }
@@ -61,10 +59,10 @@ class MainScreenViewModel extends ChangeNotifier {
       '-p',
       'COM16',
       '-b',
-      'arduino:avr:uno',
+      'arduino:renesas_uno:unor4wifi',
       filePath
     ]).then((ProcessResult results) {
-      print(results.stdout);
+      print('Upload completed with results: ${results.stdout}');
     });
   }
 
@@ -75,7 +73,7 @@ class MainScreenViewModel extends ChangeNotifier {
   }
 
   void initializeSerialCommunication() {
-    final List<PortInfo> portList = SerialPort.getPortsWithFullMessages();
+    /*final List<PortInfo> portList = SerialPort.getPortsWithFullMessages();
     ports = SerialPort.getAvailablePorts();
     PortInfo? arduinoPort;
     arduinoPort = portList.firstWhereOrNull((port) =>
@@ -92,6 +90,6 @@ class MainScreenViewModel extends ChangeNotifier {
     }
     print(portList);
     print(arduinoPort);
-    print(ports);
+    print(ports);*/
   }
 }
