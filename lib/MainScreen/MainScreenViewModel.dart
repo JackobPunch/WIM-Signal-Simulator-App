@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:serial_port_win32/serial_port_win32.dart';
 import 'package:collection/collection.dart';
 import 'package:win32/win32.dart';
+import 'dart:io';
 
 enum Option {
   speed50(description: '50 km/h'),
@@ -33,21 +34,38 @@ class MainScreenViewModel extends ChangeNotifier {
 
   void onButtonPressed() {
     print('Button pressed');
-    String message;
+    String inoFilePath;
     switch (selectedOption) {
       case Option.speed50:
-        message = "1";
+        inoFilePath =
+            'C:\Users\rolni\kody\Dziekan\SignalTransmitter\codes\ArduinUno\firstBoss\firstBoss.ino';
         break;
       case Option.speed60:
-        message = "2";
+        inoFilePath =
+            'C:\Users\rolni\kody\Dziekan\SignalTransmitter\codes\ArduinUno\firstBoss\firstBoss.ino';
         break;
       case Option.speed70:
-        message = "3";
+        inoFilePath =
+            'C:\Users\rolni\kody\Dziekan\SignalTransmitter\codes\ArduinUno\firstBoss\firstBoss.ino';
         break;
       default:
-        message = "0"; // Default message if none of the options match
+        inoFilePath =
+            'C:\Users\rolni\kody\Dziekan\SignalTransmitter\codes\ArduinUno\firstBoss\firstBoss.ino';
     }
-    sendMessage(message);
+    uploadInoFile(inoFilePath);
+  }
+
+  void uploadInoFile(String filePath) {
+    Process.run('arduino-cli', [
+      'upload',
+      '-p',
+      'COM16',
+      '-b',
+      'arduino:avr:uno',
+      filePath
+    ]).then((ProcessResult results) {
+      print(results.stdout);
+    });
   }
 
   void updateSelectedOption(Option? newOption) {
@@ -75,16 +93,5 @@ class MainScreenViewModel extends ChangeNotifier {
     print(portList);
     print(arduinoPort);
     print(ports);
-  }
-
-  void sendMessage(String message) async {
-    // Check if serialPort is initialized before using it
-    if (!serialPort.isOpened) {
-      // Initialize serial communication if it's not already initialized
-      initializeSerialCommunication();
-    }
-
-    // Send the message via the serial port
-    serialPort.writeBytesFromString(message);
   }
 }
