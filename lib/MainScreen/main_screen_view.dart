@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'MainScreenViewModel.dart';
+import 'main_screen_view_model.dart';
 
 class MainScreenView extends StatefulWidget {
   const MainScreenView({super.key});
 
   @override
-  _MainScreenViewState createState() => _MainScreenViewState();
+  MainScreenViewState createState() => MainScreenViewState();
 }
 
-class _MainScreenViewState extends State<MainScreenView> {
+class MainScreenViewState extends State<MainScreenView> {
   final viewModel = MainScreenViewModel();
 
   @override
