@@ -27,7 +27,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: ColorScheme.fromSeed(seedColor: Colors.blue).primary,
       title: const Text(
-        'Panel Sterowania Zadajnikiem v. 0.1',
+        'Sender Control Panel v. 0.1',
         style: TextStyle(color: Colors.white),
       ),
     );
@@ -49,10 +49,7 @@ class MainBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           const DescriptionText(),
-          const SizedBox(height: 20),
-          const Expanded(
-            child: VehicleChoosing(),
-          ),
+          const VehicleChoosing(),
           SpeedDropdown(viewModel: viewModel),
           const SizedBox(height: 40),
           SendButton(viewModel: viewModel),
@@ -70,8 +67,12 @@ class DescriptionText extends StatelessWidget {
     return const Column(
       children: [
         Text(
-            "Application to control the test signal transmitter. Allows selection of travel speed."),
-        Text('Select the speed of the sender:'),
+          "Application to control the signal transmitter. Allows selection of vehicle and travel speed.",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
       ],
     );
   }
@@ -90,6 +91,11 @@ class VehicleChoosingState extends State<VehicleChoosing> {
     'images/image1.png',
     'images/image2.png',
     'images/image3.png',
+    'images/image4.png',
+    'images/image5.png',
+    'images/image6.png',
+    'images/image7.png',
+    'images/image8.png',
   ];
 
   void _previousImage() {
@@ -106,7 +112,8 @@ class VehicleChoosingState extends State<VehicleChoosing> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      padding: const EdgeInsets.all(0.0), // Optional: Add padding if needed
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -118,8 +125,8 @@ class VehicleChoosingState extends State<VehicleChoosing> {
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Image.asset(
               _images[_currentIndex],
-              width: 200,
-              height: 200,
+              width: 400,
+              height: 400,
             ),
           ),
           IconButton(
