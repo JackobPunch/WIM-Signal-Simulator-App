@@ -50,6 +50,9 @@ class MainBody extends StatelessWidget {
         children: <Widget>[
           const DescriptionText(),
           const SizedBox(height: 20),
+          const Expanded(
+            child: VehicleChoosing(),
+          ),
           SpeedDropdown(viewModel: viewModel),
           const SizedBox(height: 40),
           SendButton(viewModel: viewModel),
@@ -70,6 +73,61 @@ class DescriptionText extends StatelessWidget {
             "Application to control the test signal transmitter. Allows selection of travel speed."),
         Text('Select the speed of the sender:'),
       ],
+    );
+  }
+}
+
+class VehicleChoosing extends StatefulWidget {
+  const VehicleChoosing({super.key});
+
+  @override
+  VehicleChoosingState createState() => VehicleChoosingState();
+}
+
+class VehicleChoosingState extends State<VehicleChoosing> {
+  int _currentIndex = 0;
+  final List<String> _images = [
+    'images/image1.png',
+    'images/image2.png',
+    'images/image3.png',
+  ];
+
+  void _previousImage() {
+    setState(() {
+      _currentIndex = (_currentIndex - 1) % _images.length;
+    });
+  }
+
+  void _nextImage() {
+    setState(() {
+      _currentIndex = (_currentIndex + 1) % _images.length;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: _previousImage,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Image.asset(
+              _images[_currentIndex],
+              width: 200,
+              height: 200,
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.arrow_forward),
+            onPressed: _nextImage,
+          ),
+        ],
+      ),
     );
   }
 }
