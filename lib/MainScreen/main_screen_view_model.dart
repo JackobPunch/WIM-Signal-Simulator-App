@@ -12,6 +12,21 @@ enum Option {
   final String description;
 }
 
+enum VehicleOption {
+  car(description: 'Car'),
+  bike(description: 'Bike'),
+  truck(description: 'Truck'),
+  bus(description: 'Bus'),
+  van(description: 'Van'),
+  suv(description: 'SUV'),
+  motorcycle(description: 'Motorcycle'),
+  bicycle(description: 'Bicycle');
+
+  const VehicleOption({required this.description});
+
+  final String description;
+}
+
 class MainScreenViewModel extends ChangeNotifier {
   MainScreenViewModel() {
     // Initialize serial communication when the MainScreenViewModel is created

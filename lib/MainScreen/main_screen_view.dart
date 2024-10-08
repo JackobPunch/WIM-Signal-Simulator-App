@@ -50,6 +50,7 @@ class MainBody extends StatelessWidget {
         children: <Widget>[
           const DescriptionText(),
           const VehicleChoosing(),
+          const SizedBox(height: 40),
           SpeedDropdown(viewModel: viewModel),
           const SizedBox(height: 40),
           SendButton(viewModel: viewModel),
@@ -98,15 +99,30 @@ class VehicleChoosingState extends State<VehicleChoosing> {
     'images/image8.png',
   ];
 
+  final List<VehicleOption> _vehicleOptions = [
+    VehicleOption.car,
+    VehicleOption.bike,
+    VehicleOption.truck,
+    VehicleOption.bus,
+    VehicleOption.van,
+    VehicleOption.suv,
+    VehicleOption.motorcycle,
+    VehicleOption.bicycle,
+  ];
+
+  VehicleOption? _selectedVehicleOption;
+
   void _previousImage() {
     setState(() {
-      _currentIndex = (_currentIndex - 1) % _images.length;
+      _currentIndex = (_currentIndex - 1 + _images.length) % _images.length;
+      _selectedVehicleOption = _vehicleOptions[_currentIndex];
     });
   }
 
   void _nextImage() {
     setState(() {
       _currentIndex = (_currentIndex + 1) % _images.length;
+      _selectedVehicleOption = _vehicleOptions[_currentIndex];
     });
   }
 
@@ -114,25 +130,33 @@ class VehicleChoosingState extends State<VehicleChoosing> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(0.0), // Optional: Add padding if needed
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
         children: [
-          IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: _previousImage,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: _previousImage,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Image.asset(
+                  _images[_currentIndex],
+                  width: 400,
+                  height: 300,
+                ),
+              ),
+              IconButton(
+                icon: const Icon(Icons.arrow_forward),
+                onPressed: _nextImage,
+              ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Image.asset(
-              _images[_currentIndex],
-              width: 400,
-              height: 400,
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.arrow_forward),
-            onPressed: _nextImage,
-          ),
+          _selectedVehicleOption == null
+              ? const Text('No vehicle selected')
+              : Text(
+                  'Selected vehicle: ${_selectedVehicleOption!.description}'),
         ],
       ),
     );
