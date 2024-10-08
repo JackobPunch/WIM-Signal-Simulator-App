@@ -153,10 +153,15 @@ class VehicleChoosingState extends State<VehicleChoosing> {
               ),
             ],
           ),
+          const Text('Selected vehicle:'),
           _selectedVehicleOption == null
               ? const Text('No vehicle selected')
-              : Text(
-                  'Selected vehicle: ${_selectedVehicleOption!.description}'),
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(_selectedVehicleOption!.description),
+                  ],
+                ),
         ],
       ),
     );
