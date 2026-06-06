@@ -53,6 +53,12 @@ The `images/` folder contains the camera captures from those real measurements. 
 
 The raw CSV waveforms were analysed in MATLAB (FFT showed relevant harmonics up to ~80 Hz). The key sample values for each vehicle were extracted and hardcoded as arrays into the Arduino firmware (`semi_trailer_generator.ino` in the SignalTransmitter repo). Every 6th sample was taken, giving a generation rate of ~833 Hz — well above the 240 Hz minimum derived from the sampling theorem.
 
+### Simulation algorithm
+
+When Send is pressed, the Arduino runs the following sequence:
+
+![Simulation algorithm flowchart](images/simulation_flowchart.jpg)
+
 ### Step 3 — Simulation (this app)
 
 The app:
