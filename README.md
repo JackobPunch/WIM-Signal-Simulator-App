@@ -128,3 +128,11 @@ See the thesis for test results and recommendations for future development.
 
 - [WIM-Signal-Simulator](https://github.com/jackobpunch/WIM-Signal-Simulator) — Arduino firmware and real sensor CSV data
 - [WIM-Signal-Simulator-Thesis](https://github.com/jackobpunch/WIM-Signal-Simulator-Thesis) — Full thesis (LaTeX source + compiled PDF)
+
+---
+
+## About this repository
+
+The application was developed by Jakub Cios as part of his engineering thesis at AGH UST (defended January 2025). The repository was made public in June 2026 — over a year after the thesis defence, once the patent situation was resolved.
+
+The README, repository organisation, and path refactoring were done with the help of [Claude](https://claude.ai) (Anthropic) to present the existing work clearly for a public audience.
