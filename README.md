@@ -1,10 +1,13 @@
 # WIM Signal Simulator — Desktop Control Panel
 
-A Windows desktop application built with Flutter for controlling the WIM signal simulator hardware described in the engineering thesis:
+> **About this repository**
+> Developed by **Jakub Cios** as part of his engineering thesis at AGH University of Science and Technology (defended January 2025), supervised by dr hab. inż. Ryszard Sroka, prof. AGH, with support from Mateusz Danioł.
+>
+> Part of the research project **"Preparation of metrological security for implementing WIM systems in direct mass enforcement mode (e-WIM)"**, conducted in cooperation between AGH and **GUM** (Główny Urząd Miar — Central Office of Measures) under the [Polska Metrologia](https://www.agh.edu.pl/aktualnosci/detail/projekty-z-programu-polska-metrologia-agh-i-gum-rozpoczynaja-wspolprace) programme funded by the Polish Ministry of Education and Science.
+>
+> Made public June 2026. README and path refactoring prepared with the help of [Claude](https://claude.ai) (Anthropic).
 
-> **"Signal simulator from the dynamic vehicle weighing system"**
-> Jakub Cios, AGH University of Science and Technology, Faculty of Electrical Engineering, Automatics, Computer Science and Biomedical Engineering, 2025
-> Supervisor: dr hab. inż. Ryszard Sroka, prof. AGH
+A Windows desktop application built with Flutter for controlling the WIM signal simulator hardware described in the engineering thesis: **"Signal simulator from the dynamic vehicle weighing system"**.
 
 The simulator hardware and firmware are in the companion repo: [WIM-Signal-Simulator](https://github.com/jackobpunch/WIM-Signal-Simulator).
 
@@ -129,10 +132,3 @@ See the thesis for test results and recommendations for future development.
 - [WIM-Signal-Simulator](https://github.com/jackobpunch/WIM-Signal-Simulator) — Arduino firmware and real sensor CSV data
 - [WIM-Signal-Simulator-Thesis](https://github.com/jackobpunch/WIM-Signal-Simulator-Thesis) — Full thesis (LaTeX source + compiled PDF)
 
----
-
-## About this repository
-
-The application was developed by Jakub Cios as part of his engineering thesis at AGH UST (defended January 2025). The repository was made public in June 2026 — over a year after the thesis defence, once the patent situation was resolved.
-
-The README, repository organisation, and path refactoring were done with the help of [Claude](https://claude.ai) (Anthropic) to present the existing work clearly for a public audience.
