@@ -8,6 +8,8 @@ A Windows desktop application built with Flutter for controlling the WIM signal 
 
 The simulator hardware and firmware are in the companion repo: [WIM-Signal-Simulator](https://github.com/jackobpunch/WIM-Signal-Simulator).
 
+![App screenshot](images/app_screenshot.jpg)
+
 ---
 
 ## What this is
