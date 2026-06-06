@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:serial_port_win32/serial_port_win32.dart';
 import 'dart:io';
 
+// Path to the SignalTransmitter repo on your machine.
+// Update this to match your local checkout of:
+// https://github.com/jackobpunch/SignalTransmitter
+const String kSignalTransmitterRoot =
+    r'C:\Users\rolni\kody\Dziekan\SignalTransmitter';
+
 enum Option {
   speed50(description: '50 km/h'),
   speed60(description: '60 km/h'),
@@ -48,24 +54,8 @@ class MainScreenViewModel extends ChangeNotifier {
 
   void onButtonPressed() {
     print('Button pressed');
-    String inoFilePath;
-    switch (selectedOption) {
-      case Option.speed50:
-        inoFilePath =
-            'C:\\Users\\rolni\\kody\\Dziekan\\SignalTransmitter\\codes\\ArduinUno\\firstBoss\\firstBoss.ino';
-        break;
-      case Option.speed60:
-        inoFilePath =
-            'C:\\Users\\rolni\\kody\\Dziekan\\SignalTransmitter\\codes\\ArduinUno\\firstBoss\\firstBoss.ino';
-        break;
-      case Option.speed70:
-        inoFilePath =
-            'C:\\Users\\rolni\\kody\\Dziekan\\SignalTransmitter\\codes\\ArduinUno\\firstBoss\\firstBoss.ino';
-        break;
-      default:
-        inoFilePath =
-            'C:\\Users\\rolni\\kody\\Dziekan\\SignalTransmitter\\codes\\ArduinUno\\firstBoss\\firstBoss.ino';
-    }
+    const inoFilePath =
+        '$kSignalTransmitterRoot\\codes\\ArduinUno\\semi_trailer_generator\\semi_trailer_generator.ino';
     uploadInoFile(inoFilePath);
   }
 
